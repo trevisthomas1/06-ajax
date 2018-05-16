@@ -14,13 +14,16 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Movie Name</th>
+          <th scope="col" id="title">Movie Name</th>
           <th scope="col">Year</th>
           <th scope="col">Actors</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="tbodyId">
         <!-- Insert movie rows here -->
+        <tr id="nobody"></tr>
+        <tr id="deadpool"></tr>
+        <tr id="windRiver"></tr>
       </tbody>
     </table>
   </div>
@@ -33,18 +36,49 @@
     $.ajax({
       url: queryURL,
       method: "GET"
-    }).then(function(response) {
+    }).then(function (response) {
 
       // Obtain a reference to the tbody element in the DOM
       // Create and save a reference to new empty table row
       // Create and save references to 3 td elements containing the Title, Year, and Actors from the AJAX response object
+
       // Append the td elements to the new table row
+      $("#nobody").append('<td>' + response.Title + '</td>');
+      $("#nobody").append('<td>' + response.Year + '</td>');
+      $("#nobody").append('<td>' + response.Actors + '</td>');
+
+
       // Append the table row to the tbody element
     });
 
-    // Repeat the above logic to add rows for two more movies of your choice
+    var movieTwo = "Deadpool";
+    var queryURL = "https://www.omdbapi.com/?t=" + movieTwo + "&y=&plot=short&apikey=trilogy";
 
-    // BONUS: Once complete, try to make your code as DRY as possible through the use of functions
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(function (response) {
+      $("#deadpool").append('<td>' + response.Title + '</td>');
+      $("#deadpool").append('<td>' + response.Year + '</td>');
+      $("#deadpool").append('<td>' + response.Actors + '</td>');
+    });
+
+    var movieThree = "Wind River";
+    var queryURL = "https://www.omdbapi.com/?t=" + movieThree + "&y=&plot=short&apikey=trilogy";
+
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(function (response) {
+      $("#windRiver").append('<td>' + response.Title + '</td>');
+      $("#windRiver").append('<td>' + response.Year + '</td>');
+      $("#windRiver").append('<td>' + response.Actors + '</td>');
+    });
+
+
+   // Repeat the above logic to add rows for two more movies of your choice
+
+   // BONUS: Once complete, try to make your code as DRY as possible through the use of functions
   </script>
 </body>
 

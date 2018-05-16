@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Favorite Movies</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h2>Basic Table</h2>
+        <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Movie Name</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">Actors</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Insert movie rows here -->
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        var movies = ["Mr. Nobody", "Ice Age", "The Matrix", "Batman", "Lost in Space"];
+
+        function addMovie(movie) {
+            $(".table tbody").append("<tr><td scope='col'>" + movie.Title + "</td><td scope='col'>" + movie.Year + "</td><td scope='col'>" + movie.Actors + "</td></tr>");
+        };
+
+        function getMovie(title) {
+            var queryURL = "https://www.omdbapi.com/?t=" + title + "&y=&plot=short&apikey=trilogy";
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function (response) {
+                console.log(response);
+                addMovie(response);
+            });
+        }
+
+        for (var i = 0; i < movies.length; i++) {
+            getMovie(movies[i]);
+        }
+    </script>
+</body>
+
+</html>

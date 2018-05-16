@@ -15,8 +15,8 @@
     $.ajax({
       url: queryURL,
       method: "GET"
-    }).then(function(response) {
-      console.log(response);
+    }).then(function (response) {
+      console.log(response.data[13].images["480w_still"].url);
     });
   </script>
 
