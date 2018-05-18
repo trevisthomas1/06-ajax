@@ -19,12 +19,15 @@
   <div class="container">
     <h1>Movie Search</h1>
 
+    <div id="buttons-view"></div>
+
     <!-- Movies will get dumped here -->
     <div id="movies-view"></div>
 
     <form id="movie-form">
       <label for="movie-input">Add a Movie Bro</label>
-      <input type="text" id="movie-input"><br>
+      <input type="text" id="movie-input">
+      <br>
 
       <!-- Button triggers new movie to be added -->
       <input id="add-movie" type="submit" value="Add a Movie Bro">
@@ -37,19 +40,42 @@
       // Function for displaying movie data
       function renderButtons() {
 
-        // YOUR CODE GOES HERE
+        $("#buttons-view").empty(); //this wipes anything already in your div that you're about to manipulate
 
+        for (var i = 0; i < movies.length; i++) {
+          var btn = $("<button>"); //creating a variable that will be an element (if you want the element to be made more than once)
+          btn.addClass("movie"); //adding a class to the element that we can use to manipulate it
+          btn.attr("data-name", movies[i]); //attr assigns a data value to something
+          btn.text(movies[i]); //writes text to the element (in this case it's the same as our value)
+          $("#buttons-view").append(btn); //this takes the elaborate element we just created and apends it to the div for each cycle through the for loop
+        };
       }
 
       // This function handles events where one button is clicked
-      $("#add-movie").on("click", function() {
+      $("#add-movie").on("click", function () {
+        event.preventDefault();
 
-        // YOUR CODE GOES HERE
+        var inputArray = $("#movie-input").val().trim().split(' ');
 
+        var input = inputArray[0].substring(0, 1).toUpperCase() + inputArray[0].substring(1).toLowerCase() + " " +
+          inputArray[1].substring(0, 1).toUpperCase() + inputArray[1].substring(1).toLowerCase();
+        //This is really elaborate - really we could get away with var input = $("#movie-input").val().trim() to grab what the user typed into the form, however I wanted
+        //to set it up so that if they didn't use proper captilization, it would break the input into multiple strings and then captilize the first letter in each world
+        //substring works like this stringname.substring(start, end) - if you don't want the string to end, only put in a start value and it will grab everything else
+
+        console.log(inputArray);
+        console.log(input);
+
+        movies.push(input);
+
+        console.log(movies);
+
+        renderButtons();
       });
 
       // Calling the renderButtons function to display the initial list of movies
       renderButtons();
+
     </script>
   </div>
 </body>

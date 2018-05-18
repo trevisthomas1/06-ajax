@@ -24,7 +24,8 @@
 
     <form id="movie-form">
       <label for="movie-input">Add a Movie Bro</label>
-      <input type="text" id="movie-input"><br>
+      <input type="text" id="movie-input">
+      <br>
 
       <!-- Button triggers new movie to be added -->
       <input id="add-movie" type="submit" value="Add a Movie Bro">
@@ -32,6 +33,11 @@
 
     <!-- Movies will get dumped here -->
     <div id="movies-view"></div>
+    <h1 id="title"></h1>
+    <h1 id="runTime"></h1>
+    <h2 id="ratings"></h2>
+    <h3 id="plot"></h3>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
@@ -48,9 +54,18 @@
         $.ajax({
           url: queryURL,
           method: "GET"
-        }).then(function(response) {
+        }).then(function (response) {
+          
+          console.log(response.Ratings, typeof response.Ratings);
 
-          // YOUR CODE GOES HERE!!!
+          //Use a for loop to go through the Object Ratings and push each method into a ratings Array
+
+          $("#title").prepend(JSON.stringify(response.Title));
+          $("#runTime").prepend(JSON.stringify(response.Runtime));
+          $("#ratings").prepend(JSON.stringify(response.Ratings[0]));
+          $("#ratings").prepend(JSON.stringify(response.Ratings[1]));
+          $("#ratings").prepend(JSON.stringify(response.Ratings[2]));
+          $("#plot").prepend(JSON.stringify(response.Plot));
 
         });
 
@@ -81,24 +96,22 @@
       }
 
       // This function handles events where the add movie button is clicked
-      $("#add-movie").on("click", function(event) {
+      $("#add-movie").on("click", function () {
         event.preventDefault();
-        // This line of code will grab the input from the textbox
-        var movie = $("#movie-input").val().trim();
-
-        // The movie from the textbox is then added to our array
-        movies.push(movie);
-
-        // Calling renderButtons which handles the processing of our movie array
+        var inputArray = $("#movie-input").val().trim().split(' ');
+        var input = inputArray[0].substring(0, 1).toUpperCase() + inputArray[0].substring(1).toLowerCase() + " " +
+          inputArray[1].substring(0, 1).toUpperCase() + inputArray[1].substring(1).toLowerCase();
+        movies.push(input);
         renderButtons();
-
       });
+
 
       // Adding click event listeners to all elements with a class of "movie"
       $(document).on("click", ".movie", displayMovieInfo);
 
       // Calling the renderButtons function to display the intial buttons
       renderButtons();
+
     </script>
   </div>
 </body>

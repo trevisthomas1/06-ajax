@@ -19,12 +19,13 @@
   <div class="container">
     <h1>Movie Search</h1>
 
-     <!-- Rendered Buttons will get Dumped Here  -->
+    <!-- Rendered Buttons will get Dumped Here  -->
     <div id="buttons-view"></div>
 
     <form id="movie-form">
       <label for="movie-input">Add a Movie Bro</label>
-      <input type="text" id="movie-input"><br>
+      <input type="text" id="movie-input">
+      <br>
 
       <!-- Button triggers new movie to be added -->
       <input id="add-movie" type="submit" value="Add a Movie Bro">
@@ -67,16 +68,12 @@
       }
 
       // This function handles events where one button is clicked
-      $("#add-movie").on("click", function(event) {
+      $("#add-movie").on("click", function () {
         event.preventDefault();
-
-        // This line grabs the input from the textbox
-        var movie = $("#movie-input").val().trim();
-
-        // The movie from the textbox is then added to our array
-        movies.push(movie);
-
-        // Calling renderButtons which handles the processing of our movie array
+        var inputArray = $("#movie-input").val().trim().split(' ');
+        var input = inputArray[0].substring(0, 1).toUpperCase() + inputArray[0].substring(1).toLowerCase() + " " +
+        inputArray[1].substring(0, 1).toUpperCase() + inputArray[1].substring(1).toLowerCase();
+        movies.push(input);
         renderButtons();
       });
 
